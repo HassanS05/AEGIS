@@ -276,6 +276,30 @@
     letter-spacing: 1px;
   }
 
+  /* Secondary CTA — fiche PDF */
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    background: transparent;
+    color: var(--gold-light);
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-decoration: none;
+    padding: 13px 30px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .cta-secondary:hover {
+    border-color: var(--gold);
+    color: #fff;
+    background: rgba(201,168,76,0.08);
+  }
+
   /* Footer */
   .footer {
     margin-top: 48px;
@@ -381,7 +405,11 @@
       <span class="live-dot"></span>
       ACCÉDER AU BOT
     </a>
-    <div class="cta-sub">@AegisPrimeBot · Gratuit · Instantané</div>
+    <div class="cta-sub">Aegis Prime Bot · Gratuit · Instantané</div>
+    <br>
+    <a class="cta-secondary" href="AEGIS-Fonctionnalites.pdf" target="_blank" rel="noopener">
+      📄 FONCTIONNALITÉS (PDF)
+    </a>
   </div>
 
   <div class="footer">HR5 CAPITAL · BRUXELLES · 2026</div>
