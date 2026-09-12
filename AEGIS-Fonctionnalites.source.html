@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AEGIS Fiche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #050a14; }
+  body { font-family: 'Rajdhani', sans-serif; color: #eaf2fb; }
+
+  :root{
+    --bg:#050a14; --bg2:#081020; --card:#0a1424; --line:#173250;
+    --blue:#2ea8ff; --cyan:#2be6d6; --muted:#7e93ac; --text:#eef4fb;
+    --danger:#ff6a6a; --danger-bg:#1c0f14;
+  }
+
+  .page{
+    position: relative;
+    width: 210mm; height: 297mm;
+    background: var(--bg);
+    overflow: hidden;
+    page-break-after: always;
+    padding: 16mm 15mm 13mm 15mm;
+  }
+  .page:last-child{ page-break-after: auto; }
+
+  /* corner HUD frame */
+  .frame{ position:absolute; inset:8mm; border:0; pointer-events:none; }
+  .frame i{ position:absolute; width:16px; height:16px; border:2px solid var(--blue); opacity:.85; }
+  .frame i.tl{ top:0; left:0; border-right:0; border-bottom:0; }
+  .frame i.br{ bottom:0; right:0; border-left:0; border-top:0; }
+
+  .eyebrow{ font-family:'Orbitron',monospace; font-size:10px; letter-spacing:3px; color:var(--blue); text-transform:uppercase; }
+  .modnum{ font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:var(--cyan); }
+
+  .topbar{ display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'Orbitron',monospace; font-size:10px; letter-spacing:2px; color:var(--muted);
+    border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:18px; text-transform:uppercase; }
+  .topbar b{ color:#fff; }
+
+  .footer{ position:absolute; left:15mm; right:15mm; bottom:9mm;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted);
+    border-top:1px solid var(--line); padding-top:8px; text-transform:uppercase; }
+
+  h2.modtitle{ font-family:'Orbitron',monospace; font-weight:700; font-size:26px; letter-spacing:1px;
+    color:#fff; margin:6px 0 10px 0; }
+  .underline{ width:70px; height:3px; background:linear-gradient(90deg,var(--blue),var(--cyan)); margin-bottom:14px; }
+  .lede{ font-size:15px; color:#c8d6e6; line-height:1.5; margin-bottom:16px; max-width:640px; }
+
+  .card{ position:relative; background:var(--card); border:1px solid var(--line); border-radius:2px;
+    padding:13px 16px; margin-bottom:11px; border-left:3px solid var(--blue); }
+  .card .corner{ position:absolute; top:0; right:0; width:10px; height:10px; border-top:2px solid var(--cyan); border-right:2px solid var(--cyan); }
+  .card h3{ font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16.5px; color:#fff; margin:0 0 4px 0;
+    display:flex; justify-content:space-between; align-items:center; }
+  .card h3 .tag{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--cyan); font-weight:400; }
+  .card p{ font-size:14px; color:var(--muted); line-height:1.42; margin:0; }
+  .card.new{ border-left-color:var(--cyan); }
+  .card.new h3 .tag{ color:#ffd94a; }
+
+  .info-box{ background:#071a24; border:1px solid #123a4a; border-left:3px solid var(--cyan);
+    padding:14px 16px; margin-top:8px; }
+  .info-box .eyebrow{ display:block; margin-bottom:6px; }
+  .info-box p{ font-size:14px; color:#b9d3de; line-height:1.45; margin:0; }
+
+  .stat-row{ display:flex; gap:12px; margin-top:20px; }
+  .stat{ flex:1; background:#0a1424; border:1px solid var(--line); border-top:2px solid var(--blue); padding:16px 10px; text-align:center; }
+  .stat .n{ font-family:'Orbitron',monospace; font-weight:700; font-size:22px; color:var(--blue); }
+  .stat .l{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); margin-top:4px; }
+
+  .chain-row{ display:flex; gap:10px; margin-top:14px; }
+  .chain{ flex:1; display:flex; align-items:center; gap:8px; background:#0a1424; border:1px solid var(--line);
+    padding:10px 12px; font-weight:600; font-size:14px; }
+  .chain .dot{ width:9px; height:9px; border-radius:50%; border:2px solid var(--cyan); }
+
+  /* ── COVER ── */
+  .cover{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; height:100%; text-align:center; padding-top:8mm; }
+  .cover .logo{ width:150px; height:150px; border-radius:50%; border:2px solid var(--blue); display:flex; align-items:center; justify-content:center;
+    font-family:'Orbitron',monospace; font-size:30px; color:#fff; margin-top:26mm; position:relative; }
+  .cover .logo::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%); width:8px; height:8px; border-radius:50%; background:var(--blue); }
+  .cover .tag{ margin-top:22px; font-family:'Orbitron',monospace; letter-spacing:4px; font-size:12px; color:var(--blue); }
+  .cover h1{ font-family:'Orbitron',monospace; font-weight:900; font-size:48px; letter-spacing:2px; margin:22px 0 4px 0; }
+  .cover h1 span{ color:var(--blue); }
+  .cover .sub{ font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px; letter-spacing:1px; color:#dce8f2; margin-bottom:26px; }
+  .cover .desc{ font-size:16px; color:#c8d6e6; }
+  .cover .desc.small{ font-size:14px; color:var(--muted); margin-top:4px; }
+  .cover .access{ margin-top:60px; font-family:'Orbitron',monospace; letter-spacing:2px; font-size:13px; color:var(--blue); }
+  .cover .accessline{ width:220px; height:1px; background:var(--line); margin:26px auto; }
+  .cover .footer2{ margin-top:auto; padding-bottom:6mm; }
+  .cover .footer2 .l1{ font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:#c8d6e6; }
+  .cover .footer2 .l2{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:2px; color:var(--muted); margin-top:6px; }
+
+  /* ── SOMMAIRE ── */
+  .idx-title{ font-family:'Orbitron',monospace; font-weight:700; font-size:34px; text-align:center; margin:6px 0 4px 0; }
+  .idx-underline{ width:110px; height:2px; background:var(--line); margin:0 auto 30px auto; }
+  .idx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 30px; }
+  .idx-item{ display:flex; gap:14px; border-bottom:1px solid var(--line); padding-bottom:10px; }
+  .idx-item .num{ font-family:'Orbitron',monospace; font-size:20px; color:var(--blue); }
+  .idx-item .t{ font-weight:700; font-size:15px; color:#fff; }
+  .idx-item .d{ font-size:12.5px; color:var(--muted); margin-top:2px; }
+
+  .risk{ background:var(--danger-bg); border:1px solid #4a1c22; border-left:3px solid var(--danger); padding:18px 20px; margin-top:14px; }
+  .risk .eyebrow{ color:var(--danger); display:block; margin-bottom:8px; }
+  .risk p{ font-size:14.5px; color:#e6c6c6; line-height:1.5; margin:0; }
+
+  .steps{ margin-top:6px; }
+  .step{ display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; }
+  .step .circ{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:2px solid var(--cyan);
+    display:flex; align-items:center; justify-content:center; font-family:'Orbitron',monospace; font-size:13px; color:var(--cyan); }
+  .step h4{ margin:0 0 2px 0; font-size:15.5px; font-weight:700; color:#fff; }
+  .step p{ margin:0; font-size:13.5px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="cover">
+    <div class="logo">H5</div>
+    <div class="tag">AEGIS SYSTEM // TRADING ENGINE</div>
+    <h1>HR5 <span>AEGIS PRIME</span></h1>
+    <div class="sub">AI MARKET INTELLIGENCE SYSTEM</div>
+    <div class="desc">Fiche complète des fonctionnalités</div>
+    <div class="desc small">Bot de trading memecoins — Solana / Base / BNB Chain / Robinhood Chain</div>
+    <div class="stat-row" style="width:100%; max-width:560px;">
+      <div class="stat"><div class="n">24/7</div><div class="l">TRADING</div></div>
+      <div class="stat"><div class="n">04</div><div class="l">BLOCKCHAINS</div></div>
+      <div class="stat"><div class="n">IA</div><div class="l">DÉTECTION</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">CONTRÔLE</div></div>
+    </div>
+    <div class="accessline"></div>
+    <div class="access">ACCÈS :: T.ME/HR5AEGISPRIME_BOT</div>
+    <div class="footer2">
+      <div class="l1">HR5 CAPITAL — BRUXELLES — 2026</div>
+      <div class="l2">ÉDITION SEPTEMBRE 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 2 — SOMMAIRE -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="eyebrow" style="text-align:center; display:block;">INDEX</div>
+  <div class="idx-title">Sommaire</div>
+  <div class="idx-underline"></div>
+  <div class="idx-grid">
+    <div class="idx-item"><div class="num">01</div><div><div class="t">Ce que fait le bot</div><div class="d">IA, wallets, anti-rug, 4 blockchains</div></div></div>
+    <div class="idx-item"><div class="num">02</div><div><div class="t">Sources de signaux</div><div class="d">Wallets, KOL Telegram, détection automatisée</div></div></div>
+    <div class="idx-item"><div class="num">03</div><div><div class="t">Modes Auto / Manuel</div><div class="d">Trading automatique ou validation manuelle</div></div></div>
+    <div class="idx-item"><div class="num">04</div><div><div class="t">Protections intégrées</div><div class="d">Stop loss, trailing, anti-honeypot</div></div></div>
+    <div class="idx-item"><div class="num">05</div><div><div class="t">Tes wallets, tes fonds</div><div class="d">Crée, importe, exporte — 4 chaînes</div></div></div>
+    <div class="idx-item"><div class="num">06</div><div><div class="t">Paramètres personnalisables</div><div class="d">Achat, vente, sécurité, auto-adapt</div></div></div>
+    <div class="idx-item"><div class="num">07</div><div><div class="t">Trésorerie, positions &amp; bridge</div><div class="d">Dépôt, retrait, bridge inter-chaînes, ventes rapides</div></div></div>
+    <div class="idx-item"><div class="num">08</div><div><div class="t">Démarrer en 5 étapes</div><div class="d">De zéro à ton premier trade</div></div></div>
+  </div>
+  <div class="idx-item" style="grid-column:1/-1; border-bottom:none;">
+    <div class="num">09</div><div><div class="t">Risques</div><div class="d">Ce qu'il faut savoir avant de commencer</div></div>
+  </div>
+
+  <div class="info-box" style="margin-top:26px;">
+    <span class="eyebrow">COUVERTURE MULTI-CHAÎNES</span>
+    <p>Solana, Base, BNB Chain et Robinhood Chain : même moteur de détection, mêmes protections anti-rug,
+    mêmes ventes rapides 25/50/100% et le même export de clé en 1 clic sur les 4 chaînes.
+    Nouveau : un module <b style="color:#fff">🌉 Bridge</b> permet de transférer tes fonds natifs directement
+    d'une chaîne à l'autre — Solana, Base, BNB Chain, Robinhood Chain et Ethereum — sans repasser par un
+    exchange centralisé.</p>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>02 / 09</span></div>
+</section>
+
+<!-- PAGE 3 — MODULE 01 + start 02 -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>CE QUE FAIT LE BOT</span></div>
+  <div class="modnum">MODULE 01</div>
+  <h2 class="modtitle">Ce que fait le bot</h2>
+  <div class="underline"></div>
+  <p class="lede">Aegis Prime scanne en continu 4 blockchains et ne garde que les meilleurs signaux, croisés entre plusieurs sources indépendantes.</p>
+
+  <div class="card"><div class="corner"></div><h3>Intelligence artificielle <span class="tag">IA</span></h3>
+  <p>Analyse en temps réel de chaque nouveau token : liquidité, volume, âge, distribution des holders, structure du contrat. Score de qualité calculé sur 100 points.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Wallets institutionnels &amp; KOL <span class="tag">COPY</span></h3>
+  <p>Suivi de centaines de portefeuilles de traders performants. Plusieurs wallets qui achètent le même token en même temps = signal fortement confirmé.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Filtre anti-rug / anti-honeypot <span class="tag">SÉCU</span></h3>
+  <p>Chaque token est vérifié (GoPlus, GMGN) : contrat non vérifié, taxes anormales, vente bloquée, owner non renoncé, blacklist -&gt; rejet automatique, aucune exception.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Exécution multi-DEX <span class="tag">RAPIDE</span></h3>
+  <p>Routage automatique vers le meilleur DEX disponible : Uniswap V2/V3/V4, Aerodrome, Raydium, PancakeSwap. Diffusion multi-RPC pour la vitesse.</p></div>
+
+  <div class="chain-row">
+    <div class="chain"><span class="dot"></span>Solana</div>
+    <div class="chain"><span class="dot"></span>Base</div>
+    <div class="chain"><span class="dot"></span>BNB</div>
+    <div class="chain"><span class="dot"></span>Robinhood</div>
+  </div>
+
+  <div style="margin-top:20px;">
+    <div class="modnum">MODULE 02</div>
+    <h2 class="modtitle" style="font-size:22px;">Sources de signaux</h2>
+    <div class="underline"></div>
+    <p class="lede" style="margin-bottom:10px;">Plus une source est fiable, plus le bot lui fait confiance. Chaque signal est noté et croisé avant toute décision d'achat.</p>
+    <div class="card"><div class="corner"></div><h3>Wallets suivis (copy-trading)</h3>
+    <p>Des centaines de wallets performants trackés en direct sur les 4 chaînes. Achat détecté -&gt; alerte immédiate, et achat auto possible si le wallet est prioritaire.</p></div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>03 / 09</span></div>
+</section>
+
+<!-- PAGE 4 — MODULE 02 (suite) + 03 -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>02 — SOURCES DE SIGNAUX</span></div>
+
+  <div class="card"><div class="corner"></div><h3>Canaux KOL Telegram <span class="tag">LIVE</span></h3>
+  <p>Lecture en direct de plusieurs canaux d'analystes reconnus. Chaque call est analysé et noté automatiquement dès sa publication.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Détection automatisée</h3>
+  <p>Chaque nouveau token qui passe l'audit automatisé (contrat vérifié, pas honeypot, liquidité verrouillée, KOL présents) déclenche une alerte — et un achat automatique si activé, avec les mêmes protections sur les 4 chaînes.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Score de convergence</h3>
+  <p>Un token confirmé par plusieurs sources en même temps (wallet + KOL + radar) obtient un score de confiance plus élevé et passe les filtres plus facilement.</p></div>
+
+  <div style="margin-top:22px;">
+    <div class="modnum">MODULE 03</div>
+    <h2 class="modtitle">Modes Auto / Manuel</h2>
+    <div class="underline"></div>
+    <p class="lede">Le contrôle total reste toujours entre tes mains, quel que soit le mode choisi.</p>
+
+    <div class="card"><div class="corner"></div><h3>MANUEL (par défaut)</h3>
+    <p>Chaque signal validé arrive dans Telegram avec une carte complète (score, liquidité, prix, résultat anti-rug). Tu décides, tu achètes en un clic avec des tailles 25/50/100%.</p></div>
+
+    <div class="card"><div class="corner"></div><h3>AUTO</h3>
+    <p>Le bot achète pour toi dès qu'un signal passe tous les filtres, du montant que tu as défini. Sorties (TP, stop, trailing) gérées automatiquement. Activable/désactivable à tout moment, même en cours de position.</p></div>
+
+    <div class="card"><div class="corner"></div><h3>Interrupteurs par chaîne <span class="tag">ADMIN</span></h3>
+    <p>Le trading automatique peut être coupé indépendamment sur chaque blockchain (utile si un wallet n'a pas encore de fonds dessus), en plus de l'interrupteur général.</p></div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>04 / 09</span></div>
+</section>
+
+<!-- PAGE 5 — MODULE 04 + start 05 -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>04 — PROTECTIONS INTÉGRÉES</span></div>
+  <div class="modnum">MODULE 04</div>
+  <h2 class="modtitle">Protections intégrées</h2>
+  <div class="underline"></div>
+  <p class="lede">Le trading de memecoins comporte des risques — ces mécanismes existent pour les limiter, pas pour les annuler.</p>
+
+  <div class="card"><div class="corner"></div><h3>Stop Loss automatique (-15%)</h3><p>Position coupée dès que la perte atteint le seuil défini.</p></div>
+  <div class="card"><div class="corner"></div><h3>Trailing stop (8%)</h3><p>Une fois en profit, protège les gains si le prix redescend depuis son plus haut.</p></div>
+  <div class="card"><div class="corner"></div><h3>Prises de profit étagées</h3><p>TP1 +20%, TP2 +50%, TP3 +150% — vente partielle à chaque palier.</p></div>
+  <div class="card"><div class="corner"></div><h3>Time exit</h3><p>Sortie forcée si la position stagne trop longtemps.</p></div>
+  <div class="card"><div class="corner"></div><h3>Perte max par jour</h3><p>Pause automatique du bot si la limite journalière est atteinte.</p></div>
+  <div class="card"><div class="corner"></div><h3>Kill Switch</h3><p>Un bouton dans la console arrête instantanément tout trading.</p></div>
+
+  <div style="margin-top:18px;">
+    <div class="modnum">MODULE 05</div>
+    <h2 class="modtitle">Tes wallets, tes fonds</h2>
+    <div class="underline"></div>
+    <p class="lede">Le bot ne mutualise jamais l'argent. Chaque client a ses propres wallets, un par chaîne.</p>
+    <div class="card"><div class="corner"></div><h3>Créer ou importer</h3>
+    <p>Génère un wallet directement dans le bot, ou importe la clé privée d'un wallet dédié que tu contrôles déjà. Un wallet distinct pour Solana, Base, BNB Chain et Robinhood Chain.</p></div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>05 / 09</span></div>
+</section>
+
+<!-- PAGE 6 — MODULE 05 (suite) + 06 -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>05 — TES WALLETS, TES FONDS</span></div>
+
+  <div class="card"><div class="corner"></div><h3>Clés chiffrées</h3>
+  <p>Les clés privées sont stockées chiffrées (AES). Elles servent uniquement à signer tes trades — jamais visibles par l'administrateur.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Export en un clic</h3>
+  <p>Clé floutée par défaut dans la console — un clic pour la révéler et la copier, pour gérer ton wallet hors du bot à tout moment.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Dépôt minimum</h3>
+  <p>100 USDC + un peu de token natif pour le gas. Optimal : 200 à 500 USDC selon la chaîne.</p></div>
+
+  <div style="margin-top:22px;">
+    <div class="modnum">MODULE 06</div>
+    <h2 class="modtitle">Paramètres personnalisables</h2>
+    <div class="underline"></div>
+    <p class="lede">Deux modes : la stratégie du bot (réglages pro par défaut) ou ta stratégie perso, ajustable valeur par valeur depuis le menu Paramètres.</p>
+
+    <div class="card"><div class="corner"></div><h3>Achat</h3><p>Montant par trade, nombre max de positions simultanées, score minimum de qualité, tolérance de slippage.</p></div>
+    <div class="card"><div class="corner"></div><h3>Vente</h3><p>TP1 / TP2 / TP3 et trailing stop — chaque palier de sortie est ajustable.</p></div>
+    <div class="card"><div class="corner"></div><h3>Sécurité</h3><p>Stop Loss et perte maximale autorisée par jour.</p></div>
+    <div class="card"><div class="corner"></div><h3>Auto-adapt <span class="tag">IA</span></h3><p>Moteur optionnel qui ajuste automatiquement tes paramètres selon tes résultats récents (séries de gains ou de pertes).</p></div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>06 / 09</span></div>
+</section>
+
+<!-- PAGE 7 — MODULE 07 (avec BRIDGE nouveau) -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>07 — TRÉSORERIE, POSITIONS, BRIDGE</span></div>
+  <div class="modnum">MODULE 07</div>
+  <h2 class="modtitle">Trésorerie, positions &amp; bridge</h2>
+  <div class="underline"></div>
+  <p class="lede">Tout ce dont tu as besoin pour suivre, déplacer et gérer ton activité, en direct.</p>
+
+  <div class="card"><div class="corner"></div><h3>Dépôt &amp; Retrait</h3>
+  <p>Choisis la chaîne, copie l'adresse, envoie depuis ton exchange. Retrait : montant + adresse de destination + confirmation.</p></div>
+
+  <div class="card new"><div class="corner"></div><h3>Bridge inter-chaînes <span class="tag">NOUVEAU</span></h3>
+  <p>Transfère tes fonds natifs directement entre Solana, Base, BNB Chain, Robinhood Chain et Ethereum, sans passer par un exchange centralisé.
+  Le bot compare automatiquement les meilleures routes disponibles, affiche le montant estimé reçu et le délai avant chaque envoi — confirmation obligatoire en un clic.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Mes positions <span class="tag">LIVE</span></h3>
+  <p>Vue temps réel de tes trades ouverts avec P&amp;L, et boutons de vente directe 25% / 50% / 100% — vente immédiate en un clic, sans quitter Telegram.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Buy Snipe</h3>
+  <p>Achat manuel immédiat en collant l'adresse d'un token, sur n'importe laquelle des 4 chaînes supportées.</p></div>
+
+  <div class="card"><div class="corner"></div><h3>Mon rapport</h3>
+  <p>Trades du jour, win rate, P&amp;L du jour et P&amp;L total depuis le début — en un coup d'œil.</p></div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>07 / 09</span></div>
+</section>
+
+<!-- PAGE 8 — MODULE 08 -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>08 — DÉMARRER EN 5 ÉTAPES</span></div>
+  <div class="modnum">MODULE 08</div>
+  <h2 class="modtitle">Démarrer en 5 étapes</h2>
+  <div class="underline"></div>
+
+  <div class="steps">
+    <div class="step"><div class="circ">01</div><div><h4>Ouvrir le bot</h4><p>t.me/hr5aegisprime_bot puis /start. Ton compte est créé automatiquement.</p></div></div>
+    <div class="step"><div class="circ">02</div><div><h4>Configurer un wallet</h4><p>Menu Mes wallets -&gt; Créer ou Importer, pour chaque chaîne voulue.</p></div></div>
+    <div class="step"><div class="circ">03</div><div><h4>Déposer</h4><p>Menu Trésorerie -&gt; Dépôt. Minimum 100 USDC + gas natif. Déjà des fonds sur une autre chaîne ? Utilise 🌉 Bridge pour les rapatrier directement.</p></div></div>
+    <div class="step"><div class="circ">04</div><div><h4>Régler tes paramètres</h4><p>Montant par trade, mode de stratégie, TP/SL si tu veux du perso.</p></div></div>
+    <div class="step"><div class="circ">05</div><div><h4>Choisir ton mode</h4><p>MANUEL pour valider chaque signal, ou AUTO pour laisser le bot trader seul.</p></div></div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>08 / 09</span></div>
+</section>
+
+<!-- PAGE 9 — RISQUES -->
+<section class="page">
+  <div class="frame"><i class="tl"></i><i class="br"></i></div>
+  <div class="topbar"><b>HR5 // AEGIS PRIME</b><span>09 — RISQUES</span></div>
+  <div class="modnum">MODULE 09</div>
+  <h2 class="modtitle">Risques</h2>
+  <div class="underline"></div>
+
+  <div class="risk">
+    <span class="eyebrow">AVERTISSEMENT</span>
+    <p>Le trading de memecoins est hautement spéculatif. Malgré les protections (stop loss, anti-rug, perte max),
+    une perte partielle ou totale du capital déployé reste possible. N'investis que ce que tu peux te permettre
+    de perdre. HR5 Capital ne garantit aucun rendement.</p>
+  </div>
+
+  <div class="risk" style="margin-top:14px;">
+    <span class="eyebrow">RISQUE SPÉCIFIQUE — BRIDGE INTER-CHAÎNES</span>
+    <p>Un bridge dépend d'un protocole tiers pour transférer tes fonds d'une chaîne à l'autre : délai de quelques
+    secondes à quelques minutes, frais réseau + frais de route variables, et un risque propre au protocole utilisé,
+    distinct du risque de trading. Vérifie toujours le montant estimé reçu avant de confirmer.</p>
+  </div>
+
+  <div style="margin-top:40px; text-align:center;">
+    <div class="eyebrow" style="font-size:13px;">DES QUESTIONS ?</div>
+    <p style="color:#c8d6e6; margin-top:8px;">Contacte directement l'administrateur du bot.</p>
+    <div style="margin-top:50px; font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:var(--muted);">HR5 CAPITAL — BRUXELLES — 2026</div>
+  </div>
+
+  <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>09 / 09</span></div>
+</section>
+
+</body>
+</html>
