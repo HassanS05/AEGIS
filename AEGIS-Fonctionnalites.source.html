@@ -3,13 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>AEGIS Fiche</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #050a14; }
-  body { font-family: 'Rajdhani', sans-serif; color: #eaf2fb; }
+  body { font-family: 'Arial Narrow', Arial, sans-serif; color: #eaf2fb; }
 
   :root{
     --bg:#050a14; --bg2:#081020; --card:#0a1424; --line:#173250;
@@ -33,20 +31,20 @@
   .frame i.tl{ top:0; left:0; border-right:0; border-bottom:0; }
   .frame i.br{ bottom:0; right:0; border-left:0; border-top:0; }
 
-  .eyebrow{ font-family:'Orbitron',monospace; font-size:10px; letter-spacing:3px; color:var(--blue); text-transform:uppercase; }
-  .modnum{ font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:var(--cyan); }
+  .eyebrow{ font-family:'Arial Narrow', Arial, sans-serif; font-size:10px; letter-spacing:3px; color:var(--blue); text-transform:uppercase; }
+  .modnum{ font-family:'Arial Narrow', Arial, sans-serif; font-size:11px; letter-spacing:2px; color:var(--cyan); }
 
   .topbar{ display:flex; justify-content:space-between; align-items:baseline;
-    font-family:'Orbitron',monospace; font-size:10px; letter-spacing:2px; color:var(--muted);
+    font-family:'Arial Narrow', Arial, sans-serif; font-size:10px; letter-spacing:2px; color:var(--muted);
     border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:18px; text-transform:uppercase; }
   .topbar b{ color:#fff; }
 
   .footer{ position:absolute; left:15mm; right:15mm; bottom:9mm;
     display:flex; justify-content:space-between; align-items:center;
-    font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted);
+    font-family:'Arial Narrow', Arial, sans-serif; font-size:9px; letter-spacing:1.5px; color:var(--muted);
     border-top:1px solid var(--line); padding-top:8px; text-transform:uppercase; }
 
-  h2.modtitle{ font-family:'Orbitron',monospace; font-weight:700; font-size:26px; letter-spacing:1px;
+  h2.modtitle{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:700; font-size:26px; letter-spacing:1px;
     color:#fff; margin:6px 0 10px 0; }
   .underline{ width:70px; height:3px; background:linear-gradient(90deg,var(--blue),var(--cyan)); margin-bottom:14px; }
   .lede{ font-size:15px; color:#c8d6e6; line-height:1.5; margin-bottom:16px; max-width:640px; }
@@ -54,9 +52,9 @@
   .card{ position:relative; background:var(--card); border:1px solid var(--line); border-radius:2px;
     padding:13px 16px; margin-bottom:11px; border-left:3px solid var(--blue); }
   .card .corner{ position:absolute; top:0; right:0; width:10px; height:10px; border-top:2px solid var(--cyan); border-right:2px solid var(--cyan); }
-  .card h3{ font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16.5px; color:#fff; margin:0 0 4px 0;
+  .card h3{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:700; font-size:16.5px; color:#fff; margin:0 0 4px 0;
     display:flex; justify-content:space-between; align-items:center; }
-  .card h3 .tag{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--cyan); font-weight:400; }
+  .card h3 .tag{ font-family:'Arial Narrow', Arial, sans-serif; font-size:9px; letter-spacing:1.5px; color:var(--cyan); font-weight:400; }
   .card p{ font-size:14px; color:var(--muted); line-height:1.42; margin:0; }
   .card.new{ border-left-color:var(--cyan); }
   .card.new h3 .tag{ color:#ffd94a; }
@@ -68,8 +66,8 @@
 
   .stat-row{ display:flex; gap:12px; margin-top:20px; }
   .stat{ flex:1; background:#0a1424; border:1px solid var(--line); border-top:2px solid var(--blue); padding:16px 10px; text-align:center; }
-  .stat .n{ font-family:'Orbitron',monospace; font-weight:700; font-size:22px; color:var(--blue); }
-  .stat .l{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:1.5px; color:var(--muted); margin-top:4px; }
+  .stat .n{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:700; font-size:22px; color:var(--blue); }
+  .stat .l{ font-family:'Arial Narrow', Arial, sans-serif; font-size:9px; letter-spacing:1.5px; color:var(--muted); margin-top:4px; }
 
   .chain-row{ display:flex; gap:10px; margin-top:14px; }
   .chain{ flex:1; display:flex; align-items:center; gap:8px; background:#0a1424; border:1px solid var(--line);
@@ -79,26 +77,26 @@
   /* ── COVER ── */
   .cover{ display:flex; flex-direction:column; align-items:center; justify-content:flex-start; height:100%; text-align:center; padding-top:8mm; }
   .cover .logo{ width:150px; height:150px; border-radius:50%; border:2px solid var(--blue); display:flex; align-items:center; justify-content:center;
-    font-family:'Orbitron',monospace; font-size:30px; color:#fff; margin-top:26mm; position:relative; }
+    font-family:'Arial Narrow', Arial, sans-serif; font-size:30px; color:#fff; margin-top:26mm; position:relative; }
   .cover .logo::before{ content:''; position:absolute; top:-9px; left:50%; transform:translateX(-50%); width:8px; height:8px; border-radius:50%; background:var(--blue); }
-  .cover .tag{ margin-top:22px; font-family:'Orbitron',monospace; letter-spacing:4px; font-size:12px; color:var(--blue); }
-  .cover h1{ font-family:'Orbitron',monospace; font-weight:900; font-size:48px; letter-spacing:2px; margin:22px 0 4px 0; }
+  .cover .tag{ margin-top:22px; font-family:'Arial Narrow', Arial, sans-serif; letter-spacing:4px; font-size:12px; color:var(--blue); }
+  .cover h1{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:900; font-size:48px; letter-spacing:2px; margin:22px 0 4px 0; }
   .cover h1 span{ color:var(--blue); }
-  .cover .sub{ font-family:'Rajdhani',sans-serif; font-weight:700; font-size:16px; letter-spacing:1px; color:#dce8f2; margin-bottom:26px; }
+  .cover .sub{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:700; font-size:16px; letter-spacing:1px; color:#dce8f2; margin-bottom:26px; }
   .cover .desc{ font-size:16px; color:#c8d6e6; }
   .cover .desc.small{ font-size:14px; color:var(--muted); margin-top:4px; }
-  .cover .access{ margin-top:60px; font-family:'Orbitron',monospace; letter-spacing:2px; font-size:13px; color:var(--blue); }
+  .cover .access{ margin-top:60px; font-family:'Arial Narrow', Arial, sans-serif; letter-spacing:2px; font-size:13px; color:var(--blue); }
   .cover .accessline{ width:220px; height:1px; background:var(--line); margin:26px auto; }
   .cover .footer2{ margin-top:auto; padding-bottom:6mm; }
-  .cover .footer2 .l1{ font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:#c8d6e6; }
-  .cover .footer2 .l2{ font-family:'Orbitron',monospace; font-size:9px; letter-spacing:2px; color:var(--muted); margin-top:6px; }
+  .cover .footer2 .l1{ font-family:'Arial Narrow', Arial, sans-serif; font-size:11px; letter-spacing:2px; color:#c8d6e6; }
+  .cover .footer2 .l2{ font-family:'Arial Narrow', Arial, sans-serif; font-size:9px; letter-spacing:2px; color:var(--muted); margin-top:6px; }
 
   /* ── SOMMAIRE ── */
-  .idx-title{ font-family:'Orbitron',monospace; font-weight:700; font-size:34px; text-align:center; margin:6px 0 4px 0; }
+  .idx-title{ font-family:'Arial Narrow', Arial, sans-serif; font-weight:700; font-size:34px; text-align:center; margin:6px 0 4px 0; }
   .idx-underline{ width:110px; height:2px; background:var(--line); margin:0 auto 30px auto; }
   .idx-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px 30px; }
   .idx-item{ display:flex; gap:14px; border-bottom:1px solid var(--line); padding-bottom:10px; }
-  .idx-item .num{ font-family:'Orbitron',monospace; font-size:20px; color:var(--blue); }
+  .idx-item .num{ font-family:'Arial Narrow', Arial, sans-serif; font-size:20px; color:var(--blue); }
   .idx-item .t{ font-weight:700; font-size:15px; color:#fff; }
   .idx-item .d{ font-size:12.5px; color:var(--muted); margin-top:2px; }
 
@@ -109,7 +107,7 @@
   .steps{ margin-top:6px; }
   .step{ display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; }
   .step .circ{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; border:2px solid var(--cyan);
-    display:flex; align-items:center; justify-content:center; font-family:'Orbitron',monospace; font-size:13px; color:var(--cyan); }
+    display:flex; align-items:center; justify-content:center; font-family:'Arial Narrow', Arial, sans-serif; font-size:13px; color:var(--cyan); }
   .step h4{ margin:0 0 2px 0; font-size:15.5px; font-weight:700; color:#fff; }
   .step p{ margin:0; font-size:13.5px; color:var(--muted); }
 </style>
@@ -375,7 +373,7 @@
   <div style="margin-top:40px; text-align:center;">
     <div class="eyebrow" style="font-size:13px;">DES QUESTIONS ?</div>
     <p style="color:#c8d6e6; margin-top:8px;">Contacte directement l'administrateur du bot.</p>
-    <div style="margin-top:50px; font-family:'Orbitron',monospace; font-size:11px; letter-spacing:2px; color:var(--muted);">HR5 CAPITAL — BRUXELLES — 2026</div>
+    <div style="margin-top:50px; font-family:'Arial Narrow', Arial, sans-serif; font-size:11px; letter-spacing:2px; color:var(--muted);">HR5 CAPITAL — BRUXELLES — 2026</div>
   </div>
 
   <div class="footer"><span>HR5AEGISPRIME_BOT // T.ME/HR5AEGISPRIME_BOT</span><span>09 / 09</span></div>
